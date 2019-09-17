@@ -24,3 +24,18 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+:root {
+    --ion-color-primary: #7EC8C1;
+}
+ion-content{
+    --background: #2D2D2D !important;
+}
+
+ion-title{
+    color: white;
+}
+
+.custom-header{
+    --background: #2D2D2D !important;
+}
