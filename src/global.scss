@@ -28,14 +28,21 @@
 :root {
     --ion-color-primary: #7EC8C1;
 }
-ion-content{
+
+ion-content {
     --background: #2D2D2D !important;
 }
 
-ion-title{
+ion-title {
     color: white;
 }
 
-.custom-header{
+.custom-header {
     --background: #2D2D2D !important;
+}
+
+input::placeholder {
+    color: rgba(white, .6) !important;
+    opacity: 1;
+    /* Firefox */
 }

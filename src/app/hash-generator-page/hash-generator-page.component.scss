@@ -1,9 +1,9 @@
-p{
+p {
     color: white;
     line-height: 25px;
 }
 
-.content-button{
+.content-button {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -12,18 +12,22 @@ p{
     margin: 2em 0;
 }
 
-.file-hash{
+.file-hash {
     width: 100%;
     margin: 1em 10px;
     border-bottom: 1px solid white;
-  
-    span{
+
+    span {
         color: white;
+        text-overflow: ellipsis;
     }
 }
 
-ion-input{
+ion-input {
     margin: 2em 0;
-    color:white;
+    color: white;
 }
 
+#fileInput {
+    display: none;
+}

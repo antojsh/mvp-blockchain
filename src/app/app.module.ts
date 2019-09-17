@@ -11,10 +11,27 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyAsTOIwvQf89T4dP5FpScVEM_AUiBCH8tA",
+      authDomain: "mvp-blockchain-e7981.firebaseapp.com",
+      databaseURL: "https://mvp-blockchain-e7981.firebaseio.com",
+      projectId: "mvp-blockchain-e7981",
+      storageBucket: "",
+      messagingSenderId: "928889474098",
+      appId: "1:928889474098:web:e2b4a77ad261466b7ec02b"
+    }),
+    AngularFireAuthModule,
+    HttpClientModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -22,4 +39,4 @@ import { environment } from '../environments/environment';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

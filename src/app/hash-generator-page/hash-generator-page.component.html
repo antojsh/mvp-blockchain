@@ -4,18 +4,19 @@
 </p>
 
 <div class="content-button">
-  <ion-button>Select File</ion-button>
+  <ion-button (click)="openFiles()">Select File</ion-button>
+  <input type="file" id="fileInput" accept="{{typeFilesAccept}}" (change)="generateSha253($event)">
 </div>
 
-<div class="file-hash">
-  <span>FILE HASH XXXXXXXXXXXXXXXXXXX</span>
+<div class="file-hash" v-if="base64String">
+  <span>{{base64String}}</span>
 </div>
 
 
-<ion-input placeholder="Enter the text you want to be seen by anyone"></ion-input>
+<ion-input placeholder="Enter the text you want to be seen by anyone" [(ngModel)]="subject"></ion-input>
 
 <div class="content-button">
-  <ion-fab-button>
+  <ion-fab-button (click)="sendHash()" [disabled]="!subject || !base64String">
     <ion-icon name="paper"></ion-icon>
   </ion-fab-button>
 </div>
