@@ -3,17 +3,19 @@
   algorythm calculation its information is registered on Blochchains.
 </p>
 
-<div class="content-button">
+<div class="content-button" *ngIf="!onlyText">
   <ion-button (click)="openFiles()">Select File</ion-button>
-  <input type="file" id="fileInput" accept="{{typeFilesAccept}}" (change)="generateSha253($event)">
+  <input type="file" id="fileInputImage" accept="image/*" (change)="generateSha253($event)" *ngIf="onlyImages">
+  <input type="file" id="fileInputFiles" accept="*" (change)="generateSha253($event)" *ngIf="!onlyImages">
 </div>
 
-<div class="file-hash" v-if="base64String">
-  <span>{{base64String}}</span>
+<div class="file-hash" *ngIf="base64String">
+  <span>HASH {{base64String}}</span>
 </div>
 
 
-<ion-input placeholder="Enter the text you want to be seen by anyone" [(ngModel)]="subject"></ion-input>
+<ion-input placeholder="Enter the text you want to be seen by anyone" [(ngModel)]="subject"
+  (input)="generateHashByText()"></ion-input>
 
 <div class="content-button">
   <ion-fab-button (click)="sendHash()" [disabled]="!subject || !base64String">

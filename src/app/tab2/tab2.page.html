@@ -1,9 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar  class="custom-header">
     <ion-title>
-      Tab Two
+        Right Block Stamp
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content padding>
+    <app-hash-generator-page [onlyImages]="false" [onlyText]="false"></app-hash-generator-page>
+</ion-content>

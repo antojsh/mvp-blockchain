@@ -16,6 +16,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -31,12 +33,14 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     AngularFireAuthModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

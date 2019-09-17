@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { LoadingController } from '@ionic/angular';
 import * as sha256 from 'sha256';
 
 @Component({
@@ -9,21 +11,29 @@ import * as sha256 from 'sha256';
 })
 export class HashGeneratorPageComponent implements OnInit {
 
+  @Input('onlyText') onlyText: boolean;
   @Input('onlyImages') onlyImages: boolean;
   typeFilesAccept: String = "image/*";
   base64String: String;
   subject: String = ""
-  constructor(private http: HttpClient) {
+  constructor(public loadingController: LoadingController, private http: HttpClient, private afAuth: AngularFireAuth) {
 
   }
 
   ngOnInit() {
-    this.typeFilesAccept = this.onlyImages ? "image/*" : "*"
-    console.log(sha256('hellow'))
+    this.typeFilesAccept = this.onlyImages ? "image/*" : "*";
   }
 
+  generateHashByText() {
+    if (!this.onlyText || !this.subject) {
+      return;
+    }
+
+    this.base64String = sha256(this.subject);
+  }
   openFiles() {
-    document.getElementById('fileInput').click()
+    let id = this.onlyImages ? "fileInputImage" : "fileInputFiles"
+    document.getElementById(id).click()
   }
 
   generateSha253(evt) {
@@ -44,16 +54,36 @@ export class HashGeneratorPageComponent implements OnInit {
 
   //+ "&subject=" + this.subject
   sendHash() {
-    let headers = new HttpHeaders()
-    headers.append("Content-Type", "application/json")
-    headers.append("Authorization", "Basic MTU2ODczMDgwMjc0MTozMDhhOGUzMmE4MDdiNTQ0ZjY3YjQ1YjA4NDNkMQ==")
-    this.http.post("https://api.stamping.io/stamp?evidence=" + this.base64String, {}, {
-      headers
-    }).subscribe(data => {
-      console.log(data)
-    }, err => {
-      console.log(err)
+    this.presentLoading()
+    this.afAuth.user.subscribe(user => {
+      let reference = user.uid;
+      fetch("https://api.stamping.io/stamp/?evidence=" + this.base64String + "&reference=" + reference + "&subject=" + this.subject, {
+
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Basic MTU2ODczMDgwMjc0MTozMDhhOGUzMmE4MDdiNTQ0ZjY3YjQ1YjA4NDNkMQ=="
+        }
+      }).then(Response => {
+        if (Response.ok) {
+          this.loadingController.dismiss();
+          this.base64String = "";
+          this.subject = "";
+          alert('Hash Saved')
+        }
+      }).catch(err => {
+        this.loadingController.dismiss();
+        alert(err)
+      })
     })
+
+  }
+
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Saving Hash'
+    });
+    await loading.present();
   }
 
 }

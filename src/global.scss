@@ -41,8 +41,17 @@ ion-title {
     --background: #2D2D2D !important;
 }
 
+input {
+    color: white !important;
+}
+
 input::placeholder {
     color: rgba(white, .6) !important;
     opacity: 1;
     /* Firefox */
 }
+
+// ion-tab-bar,
+// ion-tab-button {
+//     background: #2D2D2D !important;
+// }

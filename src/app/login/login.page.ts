@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  data: any = {}
   constructor(private afAuth: AngularFireAuth, private router: Router) { }
 
   ngOnInit() {
@@ -18,9 +18,9 @@ export class LoginPage implements OnInit {
   loginGoogle(): Promise<void> {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(async (result) => {
-        
+
       }).catch(err => {
-        console.log(err)
+        alert(err.message)
       })
   }
 
@@ -29,12 +29,14 @@ export class LoginPage implements OnInit {
       .then(async (result) => {
         this.router.navigate(['/tabs'])
       }).catch(err => {
-        console.log(err)
+        alert(err.message)
       })
   }
 
   LoginWithEmail(form): Promise<any> {
-    return this.afAuth.auth.signInWithEmailAndPassword(form.email, form.password)
+    return this.afAuth.auth.signInWithEmailAndPassword(this.data.email, this.data.password).catch(err => {
+      alert(err.message)
+    })
   }
 
 
