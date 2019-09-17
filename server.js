@@ -28,7 +28,7 @@ app.listen(app.get('port'), function () {
 app.get('/register', function (req, res) {
     request({
             method: 'GET',
-            uri: "https://api.stamping.io/stamp/?evidence=" + req.params.evidence + "&reference=" + req.params.reference + "&subject=" + req.params.subject,
+            uri: "https://api.stamping.io/stamp/?evidence=" + req.query.evidence + "&reference=" + req.query.reference + "&subject=" + req.query.subject,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Basic MTU2ODczMDgwMjc0MTozMDhhOGUzMmE4MDdiNTQ0ZjY3YjQ1YjA4NDNkMQ=="
@@ -38,6 +38,6 @@ app.get('/register', function (req, res) {
             if (error) {
                 return res.status(500).send(error)
             }
-            res.json({})
+            res.send(body)
         })
 })
