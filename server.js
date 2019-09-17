@@ -3,9 +3,12 @@ var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var request = require('request');
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ 'extended': 'true' }));
+app.use(bodyParser.urlencoded({
+    'extended': 'true'
+}));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -21,3 +24,20 @@ app.set('port', process.env.PORT || 5000);
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+app.get('/register', function (req, res) {
+    request({
+            method: 'GET',
+            uri: "https://api.stamping.io/stamp/?evidence=" + req.params.evidence + "&reference=" + req.params.reference + "&subject=" + req.params.subject,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Basic MTU2ODczMDgwMjc0MTozMDhhOGUzMmE4MDdiNTQ0ZjY3YjQ1YjA4NDNkMQ=="
+            }
+        },
+        function (error, response, body) {
+            if (error) {
+                return res.status(500).send(error)
+            }
+            res.json({})
+        })
+})

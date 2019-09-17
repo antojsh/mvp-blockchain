@@ -57,13 +57,8 @@ export class HashGeneratorPageComponent implements OnInit {
     this.presentLoading()
     this.afAuth.user.subscribe(user => {
       let reference = user.uid;
-      fetch("https://api.stamping.io/stamp/?evidence=" + this.base64String + "&reference=" + reference + "&subject=" + this.subject, {
-
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Basic MTU2ODczMDgwMjc0MTozMDhhOGUzMmE4MDdiNTQ0ZjY3YjQ1YjA4NDNkMQ=="
-        }
-      }).then(Response => {
+      fetch("/register?evidence=" + this.base64String + "&reference=" + reference + "&subject=" + this.subject)
+      .then(Response => {
         if (Response.ok) {
           this.loadingController.dismiss();
           this.base64String = "";
