@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
       })
   }
 
-  LoginWithEmail(form): Promise<any> {
+  LoginWithEmail(): Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(this.data.email, this.data.password).catch(err => {
       alert(err.message)
     })

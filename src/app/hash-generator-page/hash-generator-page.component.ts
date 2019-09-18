@@ -57,7 +57,7 @@ export class HashGeneratorPageComponent implements OnInit {
     this.presentLoading()
     this.afAuth.user.subscribe(user => {
       let reference = user.uid;
-      fetch("/register?evidence=" + this.base64String + "&reference=" + reference + "&subject=" + this.subject)
+      fetch("https://us-central1-iklancol.cloudfunctions.net/send_email/register?evidence=" + this.base64String + "&reference=" + reference + "&subject=" + this.subject)
       .then(Response => {
         if (Response.ok) {
           this.loadingController.dismiss();
