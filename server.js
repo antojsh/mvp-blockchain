@@ -26,6 +26,7 @@ app.listen(app.get('port'), function () {
 });
 
 app.get('/register', function (req, res) {
+    console.log(req.query)
     request({
             method: 'GET',
             uri: "https://api.stamping.io/stamp/?evidence=" + req.query.evidence + "&reference=" + req.query.reference + "&subject=" + req.query.subject,
