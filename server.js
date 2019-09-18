@@ -36,6 +36,7 @@ app.get('/register', function (req, res) {
             }
         },
         function (error, response, body) {
+            console.log('LLEGO HASTA ACA')
             if (error) {
                 return res.status(500).send(error)
             }
